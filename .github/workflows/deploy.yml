@@ -117,7 +117,7 @@ jobs:
           file: ./frontend/Dockerfile.prod
           push: true
           build-args: |
-            REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+            REACT_APP_API_URL=/api
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/mern-frontend:latest
             ${{ secrets.DOCKER_USERNAME }}/mern-frontend:${{ github.sha }}
