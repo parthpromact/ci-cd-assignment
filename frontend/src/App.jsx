@@ -113,7 +113,7 @@ function App() {
         </div>
 
         <div className="form-section">
-          <h2>Add New Task</h2>
+          <h2>Add New Tasks</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
