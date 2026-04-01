@@ -1,0 +1,103 @@
+services:
+  # MongoDB Database Service
+  mongodb:
+    image: mongo:7.0
+    container_name: mern-mongodb
+    restart: unless-stopped
+    env_file:
+      - ./mongodb.env
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - mern-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache Service
+  redis:
+    image: redis:7-alpine
+    container_name: mern-redis
+    restart: unless-stopped
+    env_file:
+      - ./redis.env
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - mern-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: .Dockerfile
+    container_name: mern-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - mern-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # Frontend React Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: .Dockerfile
+    container_name: mern-frontend
+    restart: unless-stopped
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - mern-network
+    stdin_open: true
+    tty: true
+
+# Named Volumes for Data Persistence
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+  redis_data:
+    driver: local
+
+# Custom Network
+networks:
+  mern-network:
+    driver: bridge

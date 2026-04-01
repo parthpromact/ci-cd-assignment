@@ -1,0 +1,289 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  padding-left: 100px;
+  margin: 20px auto;
+  display: flex;
+  gap: 50px;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  padding: 30px 20px;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label {
+  color: white;
+  font-weight: 600;
+}
+
+.badge {
+  padding: 6px 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.badge.cache {
+  background: #ff6b6b;
+}
+
+.badge.database {
+  background: #4ecdc4;
+}
+
+.badge.success {
+  background: #51cf66;
+}
+
+.form-section {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+}
+
+.form-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 100%;
+}
+
+.btn-secondary {
+  background: #4ecdc4;
+  color: white;
+}
+
+.btn-success {
+  background: #51cf66;
+  color: white;
+}
+
+.btn-warning {
+  background: #ffd93d;
+  color: #333;
+}
+
+.btn-danger {
+  background: #ff6b6b;
+  color: white;
+}
+
+.tasks-section {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.tasks-header h2 {
+  color: #333;
+}
+
+.loading,
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-card {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.task-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.task-card.completed {
+  opacity: 0.7;
+  background: #e7f5ff;
+}
+
+.task-card.completed .task-content h3 {
+  text-decoration: line-through;
+  color: #868e96;
+}
+
+.task-content {
+  flex: 1;
+}
+
+.task-content h3 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.task-content p {
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.task-content small {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions .btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .stats-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stat {
+    justify-content: space-between;
+  }
+
+  .form-section,
+  .tasks-section {
+    padding: 20px;
+  }
+
+  .task-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .task-actions {
+    justify-content: stretch;
+  }
+
+  .task-actions .btn {
+    flex: 1;
+  }
+}
