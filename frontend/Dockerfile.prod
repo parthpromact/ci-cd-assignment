@@ -22,7 +22,7 @@ ENV CI=false
 RUN npm run build
 
 # Verify build output
-RUN ls -la /app/build || (echo "Build failed - /app/build directory not found" && exit 1)
+RUN ls -la /app/dist || (echo "Build failed - /app/dist directory not found" && exit 1)
 
 # Production stage with Nginx
 FROM nginx:alpine
